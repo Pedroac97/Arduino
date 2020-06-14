@@ -1,7 +1,9 @@
 /*
 
 Este código reconhece um cartão e acende LEDs
-
+O monitor LCD I2C foi colocado nas porata 
+A5 = SDA
+A4 = SCL
 */
 //biblioteca do monitor
 #include <Arduino.h>
@@ -17,7 +19,7 @@ Este código reconhece um cartão e acende LEDs
 #define RST_PIN 9
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 
-//pino do alarme
+//pino do BUZZER
 #define BUZZER 5 
 
 //CONFIGURACAO DO DISPLAY MICRO LCD
@@ -49,19 +51,24 @@ void setup()
 {
   //Monitor Serial
   Serial.begin(9600);
+  
   //RFID   
   SPI.begin();      
   mfrc522.PCD_Init(); 
+  
   //LEDs  
   pinMode(6, OUTPUT);
   pinMode(7, OUTPUT);
+  
   //LCD
   lcd.begin();
 }
-
+//comando para o BUZZER 
 void tocaSom(int frequencia) {
  tone(BUZZER,frequencia, 100);
 }
+
+//comando de alerta
 void alerta(){
   lcd.clear();
   lcd.setFontSize(FONT_SIZE_SMALL);
@@ -72,6 +79,8 @@ void alerta(){
   lcd.println("nao autorizada");
   delay(1000);
 }
+
+//comando de confirmação
 void ok(){
   lcd.clear();
   lcd.setFontSize(FONT_SIZE_SMALL);
@@ -82,14 +91,15 @@ void ok(){
   lcd.println("Pedro Cordeiro");
   delay(1000);
 }
+
+//comando para resetar o LCD
 void limpa(){
-  //Linpa o LCD e mostra a imagem
-  lcd.clear();
-  lcd.setFontSize(FONT_SIZE_MEDIUM);
-  lcd.println("Analisando:");
-  lcd.setCursor(40, 2);
-  lcd.draw(logo, 48, 48);
-  delay(1000);
+  lcd.clear(); //limpa a o lcd
+  lcd.setFontSize(FONT_SIZE_MEDIUM); //tamanho da letra
+  lcd.println("Analisando:");        //escreve na tela
+  lcd.setCursor(40, 2);              //posiciona
+  lcd.draw(logo, 48, 48);            //mostra a imagem
+  delay(1000); 
 }
 void loop() 
 {
@@ -122,12 +132,12 @@ void loop()
   {
     Serial.println("Entrada não autorizada!");
     Serial.println();
-    alerta();
+    alerta();   //mostra na tela a mensagem de alerta
     digitalWrite(7, HIGH); // ativa led vermelho
-    tocaSom(2800);
+    tocaSom(2800);   // liga o BUZZER no tom 2800
     delay(500);           // espera 3 segundos
     digitalWrite(7, LOW);  // desativa led vermelho
-    tocaSom(0);
+    tocaSom(0);  //Desliga o BUZZER
     delay(500); 
     digitalWrite(7, HIGH);
     tocaSom(2800); 
@@ -147,7 +157,7 @@ void loop()
   {
     Serial.println("Bem vindo de Volta Pedro Cordeiro!");
     Serial.println();
-    ok();
+    ok(); //mensagem de permição na tela
     digitalWrite(6, HIGH); // ativa led verde
     tocaSom(2800);
     delay(250);                 // espera 3 segundos
