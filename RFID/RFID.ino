@@ -19,6 +19,9 @@ A4 = SCL
 #define RST_PIN 9
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 
+//pino do rele
+#define Rele 2
+
 //pino do BUZZER
 #define BUZZER 5 
 
@@ -55,6 +58,9 @@ void setup()
   //RFID   
   SPI.begin();      
   mfrc522.PCD_Init(); 
+
+  //Rele
+  pinMode(Rele, OUTPUT);
   
   //LEDs  
   pinMode(6, OUTPUT);
@@ -132,6 +138,7 @@ void loop()
   {
     Serial.println("Entrada não autorizada!");
     Serial.println();
+    digitalWrite(Rele, HIGH); //desliga o rele(desliga o ventilador)
     alerta();   //mostra na tela a mensagem de alerta
     digitalWrite(7, HIGH); // ativa led vermelho
     tocaSom(2800);   // liga o BUZZER no tom 2800
@@ -157,6 +164,7 @@ void loop()
   {
     Serial.println("Bem vindo de Volta Pedro Cordeiro!");
     Serial.println();
+    digitalWrite(Rele, LOW);//Liga o rele(liga o ventilador
     ok(); //mensagem de permição na tela
     digitalWrite(6, HIGH); // ativa led verde
     tocaSom(2800);
