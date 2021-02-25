@@ -1,0 +1,56 @@
+
+#define ledVer 12 // led Verde na porta 12
+#define ledVermelho 11
+#define ledAmarelo 10
+#define ledBranco 8
+#define BTN 9
+
+// the setup routine runs once when you press reset:
+void setup() {     
+  // initialize the digital pin as an output.
+  pinMode(ledVer, OUTPUT); 
+  pinMode(ledVermelho, OUTPUT); 
+  pinMode(ledAmarelo, OUTPUT);
+  pinMode(ledBranco, OUTPUT); 
+  
+   pinMode(BTN, INPUT); 
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+  while (digitalRead(BTN) == LOW) {
+    semaforo();
+  }
+  
+  while (digitalRead(BTN) == HIGH) {
+    pedestre();
+  }   
+     
+}
+
+void semaforo(){
+ 
+  digitalWrite(ledVer, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(1000);               // wait for a second
+  digitalWrite(ledVer, LOW);    // turn the LED off by making the voltage LOW
+  delay(50);
+  digitalWrite(ledAmarelo, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(1000);               // wait for a second
+  digitalWrite(ledAmarelo, LOW);    // turn the LED off by making the voltage LOW
+  delay(50);  // wait for a second
+  digitalWrite(ledVermelho, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(1000);               // wait for a second
+  digitalWrite(ledVermelho, LOW);    // turn the LED off by making the voltage LOW
+  delay(50);  // wait for a second
+}
+
+void pedestre(){
+    digitalWrite(ledVermelho, HIGH);   // turn the LED on (HIGH is the voltage level)
+    delay(50);
+    digitalWrite(ledBranco, HIGH);   // turn the LED on (HIGH is the voltage level)
+    delay(30000);
+    digitalWrite(ledBranco, LOW);    // turn the LED off by making the voltage LOW
+    delay(50);
+    digitalWrite(ledVermelho, LOW);    // turn the LED off by making the voltage LOW
+    delay(50);
+}
