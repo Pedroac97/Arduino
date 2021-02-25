@@ -18,18 +18,7 @@ void setup() {
 
 // the loop routine runs over and over again forever:
 void loop() {
-  while (digitalRead(BTN) == LOW) {
-    semaforo();
-  }
   
-  while (digitalRead(BTN) == HIGH) {
-    pedestre();
-  }   
-     
-}
-
-void semaforo(){
- 
   digitalWrite(ledVer, HIGH);   // turn the LED on (HIGH is the voltage level)
   delay(1000);               // wait for a second
   digitalWrite(ledVer, LOW);    // turn the LED off by making the voltage LOW
@@ -42,9 +31,20 @@ void semaforo(){
   delay(1000);               // wait for a second
   digitalWrite(ledVermelho, LOW);    // turn the LED off by making the voltage LOW
   delay(50);  // wait for a second
+  
+  /*while (digitalRead(BTN) == HIGH) {
+    pedestre();
+  }  */
+  testePedestre();
+  
+     
 }
 
-void pedestre(){
+void semaforo(){
+ 
+}
+
+void testePedestre(){
     digitalWrite(ledVermelho, HIGH);   // turn the LED on (HIGH is the voltage level)
     delay(50);
     digitalWrite(ledBranco, HIGH);   // turn the LED on (HIGH is the voltage level)
@@ -54,3 +54,13 @@ void pedestre(){
     digitalWrite(ledVermelho, LOW);    // turn the LED off by making the voltage LOW
     delay(50);
 }
+/*void pedestre(){
+    digitalWrite(ledVermelho, HIGH);   // turn the LED on (HIGH is the voltage level)
+    delay(50);
+    digitalWrite(ledBranco, HIGH);   // turn the LED on (HIGH is the voltage level)
+    delay(30000);
+    digitalWrite(ledBranco, LOW);    // turn the LED off by making the voltage LOW
+    delay(50);
+    digitalWrite(ledVermelho, LOW);    // turn the LED off by making the voltage LOW
+    delay(50);
+}*/
