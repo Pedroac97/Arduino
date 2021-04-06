@@ -1,38 +1,62 @@
+#define Visor 12
+#define BTN 5
 
-//Servo Motor
-#include <Servo.h>
-Servo myservo;
-int sataus = 0;
+int pressionado = 0;
+int modo = 0;
 
-#define Visor 12 // Leds do visor 12
-
-//#define BTN 9
-
-// the setup routine runs once when you press reset:
-void setup() {     
-  // initialize the digital pin as an output.
-   pinMode(Visor, OUTPUT);
-   myservo.attach(13); 
-   
-//   pinMode(BTN, INPUT); 
+//--------------------------------------<<
+void setup(){
+  Serial.begin(9600); 
+  pinMode(Visor, OUTPUT);
+    pinMode(BTN, INPUT);
 }
 
-// the loop routine runs over and over again forever:
-void loop() {
+//------------------------------------------<<
+void loop(){
+  Serial.println(modo);
+  Serial.println("--------");
+  pressionado = digitalRead(BTN);
+  Serial.println(modo);
+  Serial.println("--------");
   
- 
-  while (sataus == 0) {
-    Ligado(); 
-  }  
+  botao();
   
+  if(modo == 0){
+    Ligado();
+  }
+  if(modo == 1){
+    Abrir();
+  }
 }
-
+//------------------------------------------------<<
+// função capacete
 void Ligado(){
+    delay(100);
     digitalWrite(Visor, HIGH);   // Visor ligado
-    myservo.write(0); // posição do Servo motor   
+    //myservo.write(0); // posição do Servo motor   
 }
-//void Abrir(){
-//    delay(100);
-//    digitalWrite(Visor, LOW);   // Visor ligado
-//    myservo.write(85); // posição do Servo motor   
-//}
+void Abrir(){
+    delay(100);
+    digitalWrite(Visor, LOW);   // Visor ligado
+    //myservo.write(85); // posição do Servo motor   
+}
+
+
+
+// função Botão
+void botao(){
+  if(pressionado == HIGH){
+    if(modo == 0){
+      modo += 1;
+      Serial.println(modo);
+      Serial.println("--------");
+      delay(150); // tempo para coreção de botão. problemas com conato
+    }
+    else{
+      modo -= 1;
+      Serial.println(modo);
+      Serial.println("--------");
+      delay(150); // tempo para coreção de botão.
+    }
+  }
+}
