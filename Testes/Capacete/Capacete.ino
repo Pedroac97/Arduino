@@ -45,12 +45,14 @@ void loop(){
 void Ligado(){
   delay(100);
   digitalWrite(Visor, HIGH);   // Visor ligado
+  
   myservo.write(0); // posição do Servo motor   
 }
 
 void Abrir(){
   delay(100);
   digitalWrite(Visor, LOW);   // Visor ligado
+  
   myservo.write(85); // posição do Servo motor   
 }
 
