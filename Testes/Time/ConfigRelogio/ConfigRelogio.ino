@@ -15,8 +15,8 @@ void setup()
   //As linhas abaixo setam a data e hora do modulo
   //e podem ser comentada apos a primeira utilizacao
   rtc.setDOW(WEDNESDAY);      //Define o dia da semana
-  rtc.setTime(20, 37, 0);     //Define o horario
-  rtc.setDate(21, 4, 2021);   //Define o dia, mes e ano
+  rtc.setTime(10, 33, 0);     //Define o horario
+  rtc.setDate(25, 4, 2021);   //Define o dia, mes e ano
    
   //Definicoes do pino SQW/Out
   rtc.setSQWRate(SQW_RATE_1);
